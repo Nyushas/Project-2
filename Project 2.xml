@@ -1,0 +1,27 @@
+<context>
+<input pattern="(привет * | *) ">
+<output value="Привет! Что могу сделать для вас?"/>
+<input pattern="{* (цен*|стоимость|сколько [стоит]|почем) [билет*] [* фильм*] ($Date) ($Time)  $Name*) } ">
+<!— Если известны дата, время сеанса и название фильма, бот выдает цену билета->
+
+<!— Если неизвестны дата, бот спрашивает и ждет ответа->
+<context if="empty($Date)" modal="true"> <!-- We use a modal context, so our bot will recognize any text as the user’s name -->
+
+<output value="Это зависит от сеанса. В какой день вы собираетесь в кинотеатр?"/>
+<input pattern=" $Date">
+</input>
+</context>
+
+<!— Если неизвестно время, бот спрашивает и ждет ответа->
+<context if="empty($Time)" modal="true"> <!-- We use a modal context, so our bot will recognize any text as the user’s name -->
+<output value="В какое время?"/>
+<input pattern="$Time ">
+</input>
+</context>
+
+<!— Если неизвестно название, бот спрашивает и ждет ответа->
+<context if="empty($Name)"
+<output value="Уточните пожалуйста, на какой фильм Вы хотите пойти"/>
+<input pattern="$Name">
+</input>
+</context>
